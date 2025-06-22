@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .dashboard-container h1 {
+      margin-bottom: 40px;
+    }
+
+    .dashboard-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .dashboard-buttons a {
+      text-decoration: none;
+      padding: 15px 25px;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dashboard-buttons a:hover {
+      background-color: #0056b3;
+    }
+
+    .dashboard-buttons i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+    <div class="dashboard-buttons">
+      <a href="/">Home</a>
+      <a href="/upload"><i class="fas fa-upload"></i> Upload File</a>
+      <a href="/files"><i class="fas fa-folder-open"></i> View Uploaded Files</a>
+    </div>
+  </div>
+</body>
+</html>
