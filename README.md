@@ -18,9 +18,9 @@ A Flask-based web application for user registration, authentication, and secure 
 2. Install dependencies: pip install Flask Flask-SQLAlchemy Werkzeug
 3. Run the application: python app.py
 ## Usage
-### Visit http://127.0.0.1:5000/ in your browser.
-### Register a new user or log in.
-### Upload, view, download, or delete your files securely.
+#### Visit http://127.0.0.1:5000/ in your browser.
+#### Register a new user or log in.
+#### Upload, view, download, or delete your files securely.
 ### site.db
 * Purpose: This is the SQLite database file used by your Flask application.
 * What it stores:
