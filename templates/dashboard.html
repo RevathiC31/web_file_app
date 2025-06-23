@@ -1,63 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-
-    .dashboard-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    .dashboard-container h1 {
-      margin-bottom: 40px;
-    }
-
-    .dashboard-buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .dashboard-buttons a {
-      text-decoration: none;
-      padding: 15px 25px;
-      background-color: #007BFF;
-      color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-
-    .dashboard-buttons a:hover {
-      background-color: #0056b3;
-    }
-
-    .dashboard-buttons i {
-      margin-right: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .upload-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        a.button {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 4px;
+            color: white;
+        }
+        .download {
+            background-color: #28a745;
+        }
+        .delete {
+            background-color: #dc3545;
+        }
+        .logout {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout a {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .logout a:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
-    <div class="dashboard-buttons">
-      <a href="/">Home</a>
-      <a href="/upload"><i class="fas fa-upload"></i> Upload File</a>
-      <a href="/files"><i class="fas fa-folder-open"></i> View Uploaded Files</a>
+    <div class="container">
+        <h2>Welcome to Your Dashboard, {{ username }}!</h2>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <div class="upload-form">
+            <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <input type="submit" value="Upload File">
+            </form>
+        </div>
+
+        <h3>Your Files:</h3>
+        <ul>
+            {% for file in files %}
+                <li>
+                    {{ file.filename }}
+                    <a href="{{ url_for('view_file', file_id=file.id) }}" class="button view" style="background-color: #17a2b8;">View</a>
+                    <a href="{{ url_for('download_file', file_id=file.id) }}" class="button download">Download</a>
+                    <a href="{{ url_for('delete_file', file_id=file.id) }}" class="button delete">Delete</a>
+                </li>
+            {% else %}
+                <li>No files uploaded yet.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="logout">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
     </div>
-  </div>
 </body>
 </html>
